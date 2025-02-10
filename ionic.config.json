@@ -1,0 +1,7 @@
+{
+  "name": "Banking One",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
