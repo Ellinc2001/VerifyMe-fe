@@ -1,21 +1,31 @@
 <ion-content>
   <swiper class="swiper-welcome" #swiper [config]="config" (slideChange)="swiperSlideChanged($event)"
     (reachEnd)="onLastSlide()">
+    
     <ng-template swiperSlide>
-      <ion-icon name="card" class="animate__animated animate__fadeInDown"></ion-icon>
-      <h3 class="animate__animated animate__fadeInUp">All your cards & accounts<br>in one place</h3>
-      <p class="animate__animated animate__fadeInUp">You can describe this feature here with a sentence of multiple lines.</p>
+      <ion-icon name="shield-checkmark" class="animate__animated animate__fadeInDown"></ion-icon>
+      <h3 class="animate__animated animate__fadeInUp">Protect your identity<br>across social media</h3>
+      <p class="animate__animated animate__fadeInUp">
+        Our system continuously monitors social platforms to detect unauthorized use of your identity.
+      </p>
     </ng-template>
+
     <ng-template swiperSlide>
-      <ion-icon name="sync"></ion-icon>
-      <h3>Sync across<br>all your devices</h3>
-      <p>You can describe this feature here with a sentence of multiple lines.</p>
+      <ion-icon name="search"></ion-icon>
+      <h3>Real-time content monitoring</h3>
+      <p>
+        We scan new uploads, comments, and hashtags to detect potential impersonation and identity theft.
+      </p>
     </ng-template>
+
     <ng-template swiperSlide>
-      <ion-icon name="stats-chart"></ion-icon>
-      <h3>Extensive<br>insights</h3>
-      <p>You can describe this feature here with a sentence of multiple lines.</p>
+      <ion-icon name="eye"></ion-icon>
+      <h3>AI-powered facial and voice recognition</h3>
+      <p>
+        Our AI verifies thumbnails and audio to identify content featuring your face or voice.
+      </p>
     </ng-template>
+
   </swiper>
 </ion-content>
 
@@ -24,6 +34,6 @@
     Next
   </ion-button>
   <ion-button class="ion-margin" expand="block" (click)="getStarted()" *ngIf="last_slide">
-    Get started
+    Get Started
   </ion-button>
 </ion-footer>

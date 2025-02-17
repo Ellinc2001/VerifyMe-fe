@@ -10,24 +10,38 @@ import { FilterPage } from './filter/filter.page';
 export class PaymentsPage implements OnInit {
 
   content_loaded: boolean = false;
+  detectedContent: any[] = [];
+  previousDetectedContent: any[] = [];
 
   constructor(
     private routerOutlet: IonRouterOutlet,
-    private modalController: ModalController,
-  ) { }
+    private modalController: ModalController
+  ) {}
 
   ngOnInit() {
+    this.loadContent();
+  }
 
-    // Fake timeout
+  // Simula il caricamento dei dati
+  loadContent() {
     setTimeout(() => {
+      this.detectedContent = [
+        { title: 'Fake Profile Alert!', platform: 'YouTube', isCritical: true, icon: 'logo-youtube', color: 'danger' },
+        { title: 'Deepfake Detection', platform: 'TikTok', isCritical: false, icon: 'logo-tiktok', color: 'black' },
+        { title: 'Impersonation Report', platform: 'Instagram', isCritical: true, icon: 'logo-instagram', color: 'purple' }
+      ];
+
+      this.previousDetectedContent = [
+        { title: 'Scam Video', platform: 'YouTube', isCritical: false, icon: 'logo-youtube', color: 'danger' },
+        { title: 'Profile Clone', platform: 'Instagram', isCritical: false, icon: 'logo-instagram', color: 'purple' }
+      ];
+
       this.content_loaded = true;
     }, 2000);
   }
 
-  // Filter
+  // Filter modal
   async filter() {
-
-    // Open filter modal
     const modal = await this.modalController.create({
       component: FilterPage,
       presentingElement: this.routerOutlet.nativeEl
@@ -35,19 +49,13 @@ export class PaymentsPage implements OnInit {
 
     await modal.present();
 
-    // Apply filter from modal
     let { data } = await modal.onWillDismiss();
 
     if (data) {
-
-      // Reload
       this.content_loaded = false;
-
-      // Fake timeout
       setTimeout(() => {
-        this.content_loaded = true;
+        this.loadContent();
       }, 2000);
     }
   }
-
 }

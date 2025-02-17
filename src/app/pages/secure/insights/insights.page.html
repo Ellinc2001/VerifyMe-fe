@@ -1,7 +1,7 @@
 <ion-header collapse="fade" [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Insights
+      Monitoraggio Identità
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -22,14 +22,14 @@
         <ion-card-header>
           <div>
             <ion-card-title>
-              <ion-skeleton-text animated style="width: 60px"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 100px"></ion-skeleton-text>
             </ion-card-title>
             <ion-card-subtitle>
-              <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
+              <ion-skeleton-text animated style="width: 150px"></ion-skeleton-text>
             </ion-card-subtitle>
           </div>
-          <ion-badge color="primary" mode="ios">
-            <ion-skeleton-text animated style="width: 50px"></ion-skeleton-text>
+          <ion-badge color="danger" mode="ios">
+            <ion-skeleton-text animated style="width: 80px"></ion-skeleton-text>
           </ion-badge>
         </ion-card-header>
 
@@ -41,25 +41,29 @@
       <ng-container *ngIf="content_loaded">
         <ion-card-header>
           <div>
-            <ion-card-title>$481.00</ion-card-title>
-            <ion-card-subtitle>Spent in total this year</ion-card-subtitle>
+            <ion-card-title>{{ totalReports }} Segnalazioni 🔍</ion-card-title>
+            <ion-card-subtitle>Ultimi 30 giorni</ion-card-subtitle>
           </div>
-          <ion-badge color="primary" mode="ios">
-            <ion-icon name="caret-up"></ion-icon>21.16%
+      
+          <!-- 🔹 Badge dinamico -->
+          <ion-badge [color]="percentageChangeTotal >= 0 ? 'danger' : 'success'" mode="ios">
+            <ion-icon [name]="percentageChangeTotal >= 0 ? 'caret-up' : 'caret-down'"></ion-icon> 
+            {{ percentageChangeTotal >= 0 ? '+' : '' }}{{ percentageChangeTotal }}% rispetto al mese scorso
           </ion-badge>
         </ion-card-header>
-
+      
         <canvas baseChart [data]="bar_chart_data" [options]="bar_chart_option" [type]="bar_chart_type"
           class="ion-padding">
         </canvas>
       </ng-container>
+      
 
     </ion-card>
 
     <hr class="hr-medium">
 
     <ion-list-header>
-      <ion-label color="white">Spending categories</ion-label>
+      <ion-label color="white">Segnalazioni per piattaforma</ion-label>
     </ion-list-header>
 
     <!-- Skeletons -->
@@ -73,7 +77,7 @@
             <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
           </h3>
           <p class="font-size-smallest">
-            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
           </p>
         </ion-label>
         <ion-skeleton-text slot="end" animated style="width: 10%"></ion-skeleton-text>
@@ -81,47 +85,21 @@
     </ion-list>
 
     <ion-list class="list-custom animate__animated animate__fadeIn" lines="full" *ngIf="content_loaded">
-      <ion-item button detail="false">
+      <ion-item *ngFor="let report of platformReports" button detail="false">
         <ion-avatar slot="start" class="ion-avatar-default-icon">
-          <ion-icon color="primary" name="home"></ion-icon>
+          <ion-icon [color]="report.color" [name]="report.icon"></ion-icon>
         </ion-avatar>
         <ion-label>
-          <h3>Home & living</h3>
-          <p class="font-size-smallest">1 transaction</p>
+          <h3>{{ report.platform }}</h3>
+          <p class="font-size-smallest">{{ report.totalReports }} segnalazioni</p>
         </ion-label>
-        <ion-note color="primary" class="ion-note-small font-weight-500 ion-padding-end-small">$1,021</ion-note>
-      </ion-item>
-      <ion-item button detail="false">
-        <ion-avatar slot="start" class="ion-avatar-default-icon">
-          <ion-icon color="primary" name="wallet"></ion-icon>
-        </ion-avatar>
-        <ion-label>
-          <h3>Loans</h3>
-          <p class="font-size-smallest">2 transactions</p>
-        </ion-label>
-        <ion-note color="primary" class="ion-note-small font-weight-500 ion-padding-end-small">$407.21</ion-note>
-      </ion-item>
-      <ion-item button detail="false">
-        <ion-avatar slot="start" class="ion-avatar-default-icon">
-          <ion-icon color="primary" name="barbell"></ion-icon>
-        </ion-avatar>
-        <ion-label>
-          <h3>Sports</h3>
-          <p class="font-size-smallest">1 transaction</p>
-        </ion-label>
-        <ion-note color="primary" class="ion-note-small font-weight-500 ion-padding-end-small">$17.99</ion-note>
-      </ion-item>
-      <ion-item button detail="false">
-        <ion-avatar slot="start" class="ion-avatar-default-icon">
-          <ion-icon color="primary" name="medkit"></ion-icon>
-        </ion-avatar>
-        <ion-label>
-          <h3>Insurance</h3>
-          <p class="font-size-smallest">3 transactions</p>
-        </ion-label>
-        <ion-note color="primary" class="ion-note-small font-weight-500 ion-padding-end-small">$140.15</ion-note>
+        <ion-note [color]="report.criticalReports > 0 ? 'danger' : 'medium'" 
+                  class="ion-note-small font-weight-500 ion-padding-end-small">
+          🚨 {{ report.criticalReports }} critici
+        </ion-note>
       </ion-item>
     </ion-list>
+    
 
   </div>
 
