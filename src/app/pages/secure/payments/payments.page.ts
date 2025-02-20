@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { FilterPage } from './filter/filter.page';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-payments',
@@ -15,47 +16,66 @@ export class PaymentsPage implements OnInit {
 
   constructor(
     private routerOutlet: IonRouterOutlet,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private dataService: DataService // Iniezione del DataService
   ) {}
 
   ngOnInit() {
     this.loadContent();
   }
 
-  // Simula il caricamento dei dati
+  /**
+   * Carica i contenuti reali dall'API
+   */
   loadContent() {
-    setTimeout(() => {
-      this.detectedContent = [
-        { title: 'Fake Profile Alert!', platform: 'YouTube', isCritical: true, icon: 'logo-youtube', color: 'danger' },
-        { title: 'Deepfake Detection', platform: 'TikTok', isCritical: false, icon: 'logo-tiktok', color: 'black' },
-        { title: 'Impersonation Report', platform: 'Instagram', isCritical: true, icon: 'logo-instagram', color: 'purple' }
-      ];
+    this.content_loaded = false;
+  
+    this.dataService.getDetectedContents().subscribe({
+      next: (data) => {
+        console.log("Dati ricevuti:", data);
+        this.detectedContent = data.contentsOfMonth.map(content => ({
+          ...content,
+          iconSrc: this.getPlatformIcon(content.platform)
+        }));
+        this.previousDetectedContent = data.contentsOfPreviousMonth.map(content => ({
+          ...content,
+          iconSrc: this.getPlatformIcon(content.platform)
+        }));
+        this.content_loaded = true;
+      },
+      error: (error) => {
+        console.error("Errore nel recupero dei contenuti:", error);
+        this.content_loaded = true;
+      }
+    });
+  }
+  
 
-      this.previousDetectedContent = [
-        { title: 'Scam Video', platform: 'YouTube', isCritical: false, icon: 'logo-youtube', color: 'danger' },
-        { title: 'Profile Clone', platform: 'Instagram', isCritical: false, icon: 'logo-instagram', color: 'purple' }
-      ];
-
-      this.content_loaded = true;
-    }, 2000);
+  getPlatformIcon(platform: string): string {
+    const iconsMap = {
+      'YOUTUBE': 'logo-youtube',
+      'INSTAGRAM': 'logo-instagram',
+      'TIKTOK': 'logo-tiktok',
+      'FACEBOOK': 'logo-facebook',
+      'TWITTER': 'logo-twitter',
+      'LINKEDIN': 'logo-linkedin'
+    };
+    return iconsMap[platform] || 'help-circle'; // Default se la piattaforma non è trovata
   }
 
-  // Filter modal
-  async filter() {
+  /**
+   * Mostra il filtro in un modal
+   */
+  async openContentDetails(content: any) {
     const modal = await this.modalController.create({
       component: FilterPage,
+      componentProps: { content },
       presentingElement: this.routerOutlet.nativeEl
     });
-
+  
     await modal.present();
-
-    let { data } = await modal.onWillDismiss();
-
-    if (data) {
-      this.content_loaded = false;
-      setTimeout(() => {
-        this.loadContent();
-      }, 2000);
-    }
   }
+  
+
+  
 }

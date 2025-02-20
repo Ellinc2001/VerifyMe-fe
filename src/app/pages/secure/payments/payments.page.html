@@ -4,7 +4,7 @@
       Detected Content Monitoring
     </ion-title>
     <ion-buttons slot="primary">
-      <ion-button (click)="filter()">
+      <ion-button>
         <ion-icon slot="icon-only" name="filter"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -33,17 +33,20 @@
       </ion-list-header>
 
       <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
-        <ion-item button detail="false" *ngFor="let i of [].constructor(10);">
+        <ion-item *ngFor="let content of detectedContent" button detail="false">
           <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-skeleton-text animated></ion-skeleton-text>
+            <ion-icon [name]="getPlatformIcon(content.platform)" [color]="content.color"></ion-icon>
           </ion-avatar>
           <ion-label>
-            <h3><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></h3>
-            <p><ion-skeleton-text animated style="width: 75%"></ion-skeleton-text></p>
+            <h3>{{ content.title }}</h3>
+            <p>{{ content.platform }}</p>
           </ion-label>
-          <ion-skeleton-text slot="end" animated style="width: 20%"></ion-skeleton-text>
+          <ion-badge [color]="content.isCritical ? 'danger' : 'medium'" mode="ios" slot="end">
+            {{ content.isCritical ? '⚠️ Critical' : '✅ Safe' }}
+          </ion-badge>
         </ion-item>
       </ion-list>
+      
     </ng-container>
 
     <ng-container *ngIf="content_loaded">
@@ -53,9 +56,9 @@
         <ion-label>Latest Detected Content</ion-label>
       </ion-list-header>
       <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
-        <ion-item *ngFor="let content of detectedContent" button detail="false">
+        <ion-item *ngFor="let content of detectedContent" button detail="false" (click)="openContentDetails(content)">
           <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon [name]="content.icon" [color]="content.color"></ion-icon>
+            <ion-icon [name]="getPlatformIcon(content.platform)" [color]="content.color"></ion-icon>
           </ion-avatar>
           <ion-label>
             <h3>{{ content.title }}</h3>
@@ -74,9 +77,9 @@
         <ion-label>Previous Content</ion-label>
       </ion-list-header>
       <ion-list class="list-custom animate__animated animate__fadeIn" lines="full">
-        <ion-item *ngFor="let content of previousDetectedContent" button detail="false">
+        <ion-item *ngFor="let content of previousDetectedContent" button detail="false" (click)="penContentDetails(content)">
           <ion-avatar slot="start" class="ion-avatar-default-icon">
-            <ion-icon [name]="content.icon" [color]="content.color"></ion-icon>
+            <ion-icon [name]="getPlatformIcon(content.platform)" [color]="content.color"></ion-icon>
           </ion-avatar>
           <ion-label>
             <h3>{{ content.title }}</h3>
