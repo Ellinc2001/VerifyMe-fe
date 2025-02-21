@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
 import { FilterPage } from './filter/filter.page';
 import { DataService } from 'src/app/services/data/data.service';
+import { ReportComponent } from './report/report.component';
 
 @Component({
   selector: 'app-payments',
@@ -75,7 +76,5 @@ export class PaymentsPage implements OnInit {
   
     await modal.present();
   }
-  
-
-  
+    
 }

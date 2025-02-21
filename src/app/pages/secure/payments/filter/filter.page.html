@@ -11,25 +11,39 @@
 
 <ion-content class="ion-padding">
 
-  <!-- Intestazione con icona e titolo -->
-  <div class="content-header">
-    <ion-avatar class="platform-icon">
-      <ion-icon [name]="getPlatformIcon(content.platform)" [color]="content.color"></ion-icon>
-    </ion-avatar>
-    <div class="content-title">
-      <h2>{{ content.title }}</h2>
-      <p class="platform-name">{{ content.platform }}</p>
-    </div>
+<!-- Card con shake effect -->
+<div class="content-card animate__shake"
+     [class.critical]="content.isCritical" 
+     [class.safe]="!content.isCritical"
+     (click)="openReportModal(content)">
+
+  <!-- Sezione icona piattaforma e miniatura -->
+  <div class="icon-wrapper">
+    <img *ngIf="thumbnailUrl" [src]="thumbnailUrl" alt="Thumbnail" class="thumbnail">
+    <ion-icon *ngIf="!thumbnailUrl" [name]="getPlatformIcon(content.platform)" [color]="content.color"></ion-icon>
   </div>
 
-  <!-- Stato del contenuto -->
-  <ion-chip [color]="content.isCritical ? 'danger' : 'success'">
-    <ion-icon name="{{ content.isCritical ? 'alert-circle' : 'checkmark-circle' }}"></ion-icon>
-    {{ content.isCritical ? '⚠️ Critical' : '✅ Safe' }}
-  </ion-chip>
+  <!-- Sezione titolo e piattaforma -->
+  <div class="content-info">
+    <h2>{{ getShortTitle(content.title) }}</h2>
+    <p class="platform-name">
+      <ion-icon name="globe-outline"></ion-icon> {{ content.platform }}
+    </p>
+  </div>
 
-  <hr class="hr-medium">
+</div>
 
+
+<!-- Bottone per aprire il video -->
+<div class="video-preview" *ngIf="content.url">
+  <ion-button expand="block" fill="outline" color="primary" (click)="openVideo(content.url)">
+    <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+    Watch Video
+  </ion-button>
+</div>
+
+<hr class="hr-medium">
+ 
   <!-- Sezioni dettagliate -->
   <ion-accordion-group>
     

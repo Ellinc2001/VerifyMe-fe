@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar class="report-header">
+    <ion-title>Valutazione Contenuto</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding report-content">
+
+  <!-- Contenitore Informazioni -->
+  <div class="report-box">
+    <div class="image-container">
+      <img *ngIf="thumbnailUrl" [src]="thumbnailUrl" alt="Thumbnail" class="thumbnail">
+    </div>
+    <h2 class="title">{{ content.title }}</h2>
+    <p class="platform-name">
+      <ion-icon name="globe-outline"></ion-icon> {{ content.platform }}
+    </p>
+  </div>
+
+  <p class="report-question">⚠️ Questo contenuto sembra sospetto?</p>
+
+  <!-- Pulsanti Scelta -->
+  <div class="report-actions">
+    <ion-button class="report-button danger" (click)="reportTheft(true)">
+      <!-- <ion-icon slot="start" name="alert-circle"></ion-icon> <span>Segnala Furto</span> -->
+    </ion-button>
+
+    <ion-button class="report-button success" (click)="reportTheft(false)">
+      <ion-icon slot="start" name="checkmark-circle"></ion-icon> <span>Non è un Furto</span>
+    </ion-button>
+  </div>
+
+</ion-content>

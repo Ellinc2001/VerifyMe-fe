@@ -1,48 +1,105 @@
-// .content-header {
-//     display: flex;
-//     align-items: center;
-//     justify-content: flex-start;
-//     margin-bottom: 20px;
-//   }
+/* CARD PRINCIPALE CON SHAKE */
+.content-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+    color: white;
+    opacity: 1;
+    transform: translateX(0); /* Default senza movimento */
+  }
   
-//   .platform-icon {
-//     width: 60px;
-//     height: 60px;
-//     border-radius: 50%;
-//     overflow: hidden;
-//     margin-right: 15px;
-//   }
   
-//   .content-title h2 {
-//     font-size: 18px;
-//     font-weight: bold;
-//     margin: 0;
-//   }
+  /* ROSSO PER CONTENUTI CRITICI */
+  .critical {
+    background: linear-gradient(135deg, #ff3d3d, #b71c1c);
+  }
   
-//   .platform-name {
-//     font-size: 14px;
-//     color: gray;
-//   }
+  /* VERDE PER CONTENUTI SICURI */
+  .safe {
+    background: linear-gradient(135deg, #4caf50, #1b5e20);
+  }
   
-//   .hr-medium {
-//     margin: 15px 0;
-//     height: 1px;
-//     background: #ddd;
-//   }
+  /* SEZIONE ICONA / MINIATURA */
+  .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    margin-right: 15px;
+  }
   
-//   ion-accordion-group {
-//     --background: var(--ion-color-light);
-//   }
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
   
-//   ion-accordion ion-item {
-//     --background: var(--ion-color-light);
-//     --border-radius: 12px;
-//     margin-bottom: 10px;
-//     border-radius: 12px;
-//   }
+  /* TITOLO */
+  .content-info {
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
   
-//   ion-accordion ion-icon {
-//     font-size: 22px;
-//     color: var(--ion-color-primary);
-//   }
+  .content-info h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .platform-name {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    opacity: 0.9;
+  }
+  
+  .platform-name ion-icon {
+    margin-right: 5px;
+  }
+  
+/* ANIMAZIONE SHAKE SOLO ALL'INGRESSO */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    15% { transform: translateX(-8px); }
+    30% { transform: translateX(8px); }
+    45% { transform: translateX(-6px); }
+    60% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+  }
+  
+  /* APPLICHIAMO L'ANIMAZIONE DI SHAKE */
+  .content-card.animate__shake {
+    animation: shake 0.6s ease-in-out;
+  }
+  
+  /* ROSSO PER CONTENUTI CRITICI */
+  .critical {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.9), rgba(150, 0, 0, 0.9));
+    color: white;
+    border: 2px solid rgba(255, 0, 0, 0.8);
+  }
+  
+  /* VERDE PER CONTENUTI SICURI */
+  .safe {
+    background: linear-gradient(135deg, rgba(0, 150, 0, 0.9), rgba(0, 100, 0, 0.9));
+    color: white;
+    border: 2px solid rgba(0, 150, 0, 0.8);
+  }
   

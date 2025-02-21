@@ -1,0 +1,152 @@
+/* HEADER PERSONALIZZATO */
+.report-header {
+    background: transparent;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* CONTENITORE PRINCIPALE */
+  .report-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  
+  /* BOX INFORMAZIONI */
+  .report-box {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 15px;
+  }
+  
+  /* CONTENITORE MINIATURA */
+  .image-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  /* MINIATURA */
+  .thumbnail {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Effetto zoom immagine */
+  .thumbnail:hover {
+    transform: scale(1.05);
+  }
+  
+  /* TITOLO */
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+  }
+  
+  /* PIATTAFORMA */
+  .platform-name {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  
+  .platform-name ion-icon {
+    margin-right: 5px;
+  }
+  
+  /* DOMANDA */
+  .report-question {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    opacity: 0.8;
+  }
+  
+  /* CONTENITORE BOTTONI */
+  .report-actions {
+    display: flex;
+    flex-direction: row; /* 🔹 Bottoni in riga */
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 350px;
+  }
+  
+  /* PULSANTI COMPATTI E MODERNI */
+  .report-button {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 16px; /* 🔹 Bilancia l'altezza e la larghezza */
+    border-radius: 25px; /* 🔹 Design premium e arrotondato */
+    // box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    gap: 8px;
+    min-width: 140px;
+    border: none; /* 🔹 Rimuove i bordi interni */
+    background-clip: padding-box; /* 🔹 Evita effetti indesiderati */
+  }
+  
+  /* BOTTONE ROSSO - SEGNALAZIONE */
+  .danger {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: white;
+  }
+  
+  .danger:hover {
+    background: linear-gradient(135deg, #ff5252, #d32f2f);
+    transform: scale(1.07);
+  }
+  
+  /* BOTTONE VERDE - NON FURTO */
+  .success {
+    background: linear-gradient(135deg, #4caf50, #1b5e20);
+    color: white;
+  }
+  
+  .success:hover {
+    background: linear-gradient(135deg, #66bb6a, #2e7d32);
+    transform: scale(1.07);
+  }
+  
+  /* Elimina qualsiasi bordo o effetto indesiderato */
+  .report-button::after {
+    content: none !important;
+    display: none !important;
+  }
+  
+  /* Icone più bilanciate */
+  .report-button ion-icon {
+    font-size: 18px;
+  }
+  
