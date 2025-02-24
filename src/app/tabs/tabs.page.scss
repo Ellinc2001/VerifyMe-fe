@@ -1,1 +1,37 @@
 
+.tab-icon {
+    width: 43px; /* 🔹 Regola la dimensione dell'icona */
+    height: 43px;
+    object-fit: contain; /* 🔹 Assicura che l'icona non venga distorta */
+    margin-right: 10px; /* 🔹 Aggiunge spazio tra icona e testo */
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .tab-icon-content {
+    width: 45px; /* 🔹 Regola la dimensione dell'icona */
+    height: 45px;
+    object-fit: contain; /* 🔹 Assicura che l'icona non venga distorta */
+    margin-right: 10px; /* 🔹 Aggiunge spazio tra icona e testo */
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+    
+  .tab-icon-insights {
+    width: 60px; /* 🔹 Regola la dimensione dell'icona */
+    height: 65px;
+    object-fit: contain; /* 🔹 Assicura che l'icona non venga distorta */
+    margin-right: 10px; /* 🔹 Aggiunge spazio tra icona e testo */
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .tab-icon-home {
+    width: 50px; /* 🔹 Regola la dimensione dell'icona */
+    height: 50px;
+    object-fit: contain; /* 🔹 Assicura che l'icona non venga distorta */
+    margin-right: 10px; /* 🔹 Aggiunge spazio tra icona e testo */
+    display: inline-block;
+    vertical-align: middle;
+  }

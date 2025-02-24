@@ -991,3 +991,16 @@ ion-skeleton-text {
 ion-avatar ion-skeleton-text {
   --border-radius: 50%;
 }
+
+.small-modal {
+  --width: 90%;
+  --max-width: 350px;
+  --height: 60vh;
+  --max-height: 60%;
+  --border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+

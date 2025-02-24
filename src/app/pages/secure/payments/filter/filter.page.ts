@@ -83,6 +83,8 @@ export class FilterPage implements OnInit {
     const modal = await this.modalController.create({
       component: ReportComponent,
       componentProps: { content },
+      cssClass: 'small-modal', // 🔹 Classe CSS personalizzata
+
     });
   
     await modal.present();

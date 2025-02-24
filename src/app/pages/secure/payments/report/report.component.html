@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar class="report-header">
-    <ion-title>Valutazione Contenuto</ion-title>
+    <ion-title>Your rating</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="closeModal()">
         <ion-icon name="close-outline"></ion-icon>
@@ -22,17 +22,22 @@
     </p>
   </div>
 
-  <p class="report-question">⚠️ Questo contenuto sembra sospetto?</p>
+  <p class="report-question">Does this content seem suspicious? ⚠️
+  </p>
 
   <!-- Pulsanti Scelta -->
   <div class="report-actions">
-    <ion-button class="report-button danger" (click)="reportTheft(true)">
-      <!-- <ion-icon slot="start" name="alert-circle"></ion-icon> <span>Segnala Furto</span> -->
-    </ion-button>
+    <ion-fab class="ion-fab-custom-1">
+      <ion-fab-button>
+        <ion-icon name="alert-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
-    <ion-button class="report-button success" (click)="reportTheft(false)">
-      <ion-icon slot="start" name="checkmark-circle"></ion-icon> <span>Non è un Furto</span>
-    </ion-button>
+    <ion-fab class="ion-fab-custom-2">
+      <ion-fab-button>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 
 </ion-content>

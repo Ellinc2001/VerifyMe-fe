@@ -20,8 +20,8 @@ export class TabsPage {
       cssClass: 'custom-action-sheet',
       buttons: [
         {
-          text: 'Add account',
-          icon: 'wallet',
+          text: 'Add Identity Trigger',
+          icon: 'person',
           handler: () => {
             // Put in logic ...
           }

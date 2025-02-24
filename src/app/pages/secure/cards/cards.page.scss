@@ -1,0 +1,89 @@
+:host {
+    /* Personalizzazione del titolo della lista */
+    .ion-list-header-main {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--ion-color-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  
+    /* Stile delle card con colori armoniosi */
+    ion-card {
+      background: linear-gradient(135deg, #2d2d2d, #3b3b3b); /* 🔹 Gradiente morbido */
+      --border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+      margin-bottom: 15px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+  
+    /* Effetto hover sulle card */
+    ion-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* Header della card con sfondo migliorato */
+    ion-card-header {
+      display: flex;
+      align-items: center;
+      background: rgba(45, 45, 45, 0.8); /* 🔹 Sfondo leggermente trasparente */
+      border-radius: 12px 12px 0 0;
+      padding: 12px;
+    }
+  
+    /* Contenuto della card con leggibilità migliorata */
+    ion-card-content {
+      font-size: 14px;
+      color: #dcdcdc; /* 🔹 Testo più chiaro per migliorare leggibilità */
+      padding: 12px 15px;
+    }
+  
+    /* Icone della piattaforma con colori distintivi */
+    .platform-icon {
+      font-size: 26px;
+    }
+  
+    /* Colori personalizzati per piattaforme */
+    .platform-icon[platform="YOUTUBE"] {
+      color: #ff0000;
+    }
+  
+    .platform-icon[platform="INSTAGRAM"] {
+      color: #c13584;
+    }
+  
+    .platform-icon[platform="TIKTOK"] {
+      color: #00f2ea;
+    }
+  
+    .platform-icon[platform="FACEBOOK"] {
+      color: #1877f2;
+    }
+  
+    .platform-icon[platform="TWITTER"] {
+      color: #1da1f2;
+    }
+  
+    .platform-icon[platform="LINKEDIN"] {
+      color: #0077b5;
+    }
+  
+    /* Stile del pulsante di eliminazione */
+    ion-button[color="danger"] {
+      --color: white;
+      --background: #ff4c4c;
+      --background-hover: #d32f2f;
+      --background-activated: #b71c1c;
+    }
+  
+    /* Separatore migliorato */
+    .hr-medium {
+      border: none;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 15px 0;
+    }
+  }
+  

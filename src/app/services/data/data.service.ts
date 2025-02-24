@@ -11,7 +11,7 @@ export class DataService {
 
   private username = 'Elli01';
   private urlInsights = `http://localhost:8080/insights/findByUsername/${this.username}`; // 🔥 Modifica con il tuo backend
-  private jwtToken='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFbGxpMDEiLCJpYXQiOjE3NDAxNDY2NTAsImV4cCI6MTc0MDIzMzA1MH0.6BXblsq2vxx64YlPOgoVePo-5GJBsUTMANKe6Eo50Lk'
+  private jwtToken='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJFbGxpMDEiLCJpYXQiOjE3NDA0MDM0ODEsImV4cCI6MTc0MDQ4OTg4MX0.MPONhS_W68Cs4KGLA7C1CgFUsEMy3y8Ly7J71MpV9VQ'
   private urlContents = 'http://localhost:8080/detected-content/get-contents-by-username'; // Modifica con il tuo backend
 
   getInsightsByUsername(): Observable<any> {

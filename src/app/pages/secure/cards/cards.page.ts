@@ -1,85 +1,138 @@
-import { AfterContentChecked, ChangeDetectorRef, Component, ViewChild, ViewEncapsulation } from '@angular/core';
-import { SwiperComponent } from 'swiper/angular';
-import SwiperCore, { SwiperOptions, Pagination } from 'swiper';
-import { AlertController, IonRouterOutlet, LoadingController, ModalController } from '@ionic/angular';
-import { ToastService } from 'src/app/services/toast/toast.service';
+import { Component, OnInit } from '@angular/core';
+import { ModalController, AlertController, IonRouterOutlet } from '@ionic/angular';
 import { AddPage } from './add/add.page';
-SwiperCore.use([Pagination]);
+import { IdentityTriggersService } from 'src/app/services/identity-triggers.service';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.page.html',
   styleUrls: ['./cards.page.scss'],
 })
-export class CardsPage implements AfterContentChecked {
+export class CardsPage implements OnInit {
 
-  @ViewChild('swiper') swiper: SwiperComponent;
-
-  // Swiper config
-  config: SwiperOptions = {
-    slidesPerView: 1,
-    spaceBetween: 50,
-    pagination: { clickable: false },
-    allowTouchMove: true
-  }
-
-  card_details_visible: boolean = false;
+  identityTriggers = [
+    {
+      id: 1,
+      name: 'John Doe',
+      platform: 'Instagram',
+      aliases: ['JDoe', 'JohnnyD'],
+      keywords: ['fake account', 'imposter', 'scammer'],
+      tags: ['#FakeAlert', '#ScamWarning'],
+      suspectChannels: ['@FakeJohnDoe']
+    },
+    {
+      id: 2,
+      name: 'Fake Account Alert',
+      platform: 'YouTube',
+      aliases: ['FraudDetect', 'ImposterHunter'],
+      keywords: ['deepfake', 'fake news', 'misinformation'],
+      tags: ['#FakeNews', '#Exposed'],
+      suspectChannels: ['@DeepfakeVideos', '@ScamYouTube']
+    },
+    {
+      id: 3,
+      name: 'Deepfake Detector',
+      platform: 'TikTok',
+      aliases: ['AI_FakeSpotter', 'DF_Check'],
+      keywords: ['deepfake detection', 'AI face swap', 'fake identity'],
+      tags: ['#Deepfake', '#AIAnalysis'],
+      suspectChannels: ['@FakeAIAccount', '@FaceSwapGuru']
+    },
+    {
+      id: 4,
+      name: 'Crypto Scammer Watch',
+      platform: 'Twitter',
+      aliases: ['CryptoScam', 'BTCFraudAlert'],
+      keywords: ['crypto scam', 'fake giveaway', 'investment fraud'],
+      tags: ['#ScamAlert', '#CryptoScam'],
+      suspectChannels: ['@ScamBitCoin', '@FakeEthereum']
+    },
+    {
+      id: 5,
+      name: 'Influencer Imposter',
+      platform: 'Facebook',
+      aliases: ['FakeInfluencer', 'BrandScam'],
+      keywords: ['fake influencer', 'social media fraud'],
+      tags: ['#FakeInfluencer', '#ScamBrand'],
+      suspectChannels: ['@FakePromoDeals', '@ScamInfluencer']
+    }
+  ];
+  
 
   constructor(
-    private alertController: AlertController,
-    private toastService: ToastService,
-    private loadingController: LoadingController,
     private modalController: ModalController,
-    private routerOutlet: IonRouterOutlet
+    private alertController: AlertController,
+    private routerOutlet: IonRouterOutlet,
+    private identityTriggersService: IdentityTriggersService
   ) { }
 
-  ngAfterContentChecked(): void {
+  ngOnInit() {}
 
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-    }
-
-  }
-
-  // Sync
-  async sync() {
-    // Loading overlay
-    const loading = await this.loadingController.create({
-      cssClass: 'default-loading',
-      message: '<p>Syncing card...</p><span>Please be patient.</span>',
-      spinner: 'crescent'
+  // Visualizza i dettagli di un Identity Trigger
+  async viewIdentityTrigger(trigger: any) {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alert',
+      header: trigger.name,
+      message: `<p><strong>Platform:</strong> ${trigger.platform}</p>`,
+      buttons: ['OK']
     });
-    await loading.present();
 
-    // Fake timeout
-    setTimeout(() => {
-      loading.dismiss();
-    }, 2000);
+    await alert.present();
   }
 
-  // Add card
-  async addCard() {
+  getPlatformIcon(platform: string): string {
+    const iconsMap = {
+      'YOUTUBE': 'logo-youtube',
+      'INSTAGRAM': 'logo-instagram',
+      'TIKTOK': 'logo-tiktok',
+      'FACEBOOK': 'logo-facebook',
+      'TWITTER': 'logo-twitter',
+      'LINKEDIN': 'logo-linkedin'
+    };
+    return iconsMap[platform.toUpperCase()] || 'help-circle';
+  }
 
-    // Open filter modal
+   // Carica gli Identity Triggers dal backend
+  loadIdentityTriggers() {
+    this.identityTriggersService.getIdentityTriggers().subscribe((triggers) => {
+      this.identityTriggers = triggers;
+    });
+  }
+
+  // Apre la modale per aggiungere un Identity Trigger
+  async addIdentityTrigger() {
     const modal = await this.modalController.create({
       component: AddPage,
       presentingElement: this.routerOutlet.nativeEl
     });
+
+    modal.onWillDismiss().then((result) => {
+      if (result.data) {
+        this.identityTriggersService.addIdentityTrigger(result.data.identityTrigger).subscribe(() => {
+          this.loadIdentityTriggers();
+        });
+      }
+    });
+
     return await modal.present();
   }
 
-  // Delete card
-  async deleteCard() {
+  // Elimina un Identity Trigger
+  async deleteIdentityTrigger(event: Event, trigger: any) {
+    event.stopPropagation();
+
     const alert = await this.alertController.create({
       cssClass: 'custom-alert',
-      header: 'Delete this card permanently?',
-      message: 'This action cannot be undone.',
+      header: 'Delete Identity Trigger?',
+      message: `Are you sure you want to remove ${trigger.name}? This action cannot be undone.`,
       buttons: [
         {
-          text: 'Delete card',
+          text: 'Delete',
           cssClass: 'danger',
-          handler: async () => {
-            this.toastService.presentToast('Success', 'Card successfully deleted', 'top', 'success', 2000);
+          handler: () => {
+            this.identityTriggersService.deleteIdentityTrigger(trigger.id).subscribe(() => {
+              this.loadIdentityTriggers();
+            });
           }
         },
         {
@@ -92,5 +145,5 @@ export class CardsPage implements AfterContentChecked {
 
     await alert.present();
   }
-
+  
 }
